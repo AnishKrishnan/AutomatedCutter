@@ -87,7 +87,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;IMAGEPROCESSING_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Code Base\trunk\Automated Cutter\AutomatedCutter\ThIrd Party Libraries\rapidxml-1.13;C:\opencv\build\include\opencv2;C:\opencv\build\include\opencv;C:\opencv\build\include;C:\Code Base\trunk\Automated Cutter\AutomatedCutter\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Code Base\trunk\Automated Cutter\AutomatedCutter\ThIrd Party Libraries\rapidxml-1.13;C:\opencv\build\include\opencv2;C:\opencv\build\include\opencv;C:\opencv\build\include;C:\Code Base\trunk\Automated Cutter\AutomatedCutter\Common;C:\Code Base\trunk\Automated Cutter\AutomatedCutter\Processor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
