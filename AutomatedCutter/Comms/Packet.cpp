@@ -56,9 +56,47 @@ char* Packet::ConstructPacket()
 	vector<char> packet(_data, _data + sizeof(_data) / sizeof(int));
 
 	_log->Log(std::string("Adding packet data size"));
-	char* dataSize = CommonHelper::ConvertIntToCharArray(_totalDataBytes, _log);	
+	char* dataSize = CommonHelper::ConvertIntToCharArray(_totalDataBytes, _log);
+	if(dataSize == NULL)
+	{
+		throw AutoCutterException(std::string("Could not retrieve data size"));
+	}
+
+	packet.insert(packet.begin(), dataSize, dataSize + sizeof(dataSize) / sizeof(int));
+
+	_log->Log(std::string("Adding packet type"));
+	char packetTypeByte = (char)_packetType;
+	packet.insert(packet.begin(), packetTypeByte);
+
+	_log->Log(std::string("Adding total packet size"));
+	_totalNumberOfBytes = packet.size();
+
+	char* packetSize = CommonHelper::ConvertIntToCharArray(_totalNumberOfBytes, _log);
+	if(packetSize == NULL)
+	{
+		throw AutoCutterException("Could not retrieve total packet size");
+	}
+	packet.insert(packet.begin(), packetSize, packetSize + sizeof(packetSize) / sizeof(int));
+
+	_log->Log(std::string("Adding start byte"));
+	packet.insert(packet.begin(), START_BYTE);
+
 	_log->Log(std::string("Packet::ConstructPacket - Finish"));
 
-	return NULL;
+	return &packet[0];
+}
+
+char* Packet::ConstructPacket(vector<char>& pData)
+{
+	_log->Log(std::string("Packet::ConstructPacket(vector<char>& pData) - Start"));
+
+	_log->Log(std::string("Setting packet data"));
+	SetData(pData);
+
+	_log->Log(std::string("Constructing packet"));
+	char* packet = ConstructPacket();
+	_log->Log(std::string("Packet::ConstructPacket(vector<char>& pData) - Finish"));
+
+	return packet;
 }
 #pragma endregion
