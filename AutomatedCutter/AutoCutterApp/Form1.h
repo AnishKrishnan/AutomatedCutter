@@ -46,6 +46,7 @@ namespace AutoCutterApp {
 		}
 
 	private: System::Windows::Forms::OpenFileDialog^  openFileDialog;
+	private: System::ComponentModel::IContainer^  components;
 
 
 
@@ -61,7 +62,7 @@ namespace AutoCutterApp {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 	private: System::Windows::Forms::Button^  button1;
 	private: System::Windows::Forms::FlowLayoutPanel^  flowLayoutPanel1;
 	private: System::Windows::Forms::Button^  button2;
@@ -79,6 +80,8 @@ namespace AutoCutterApp {
 
 			 IImageInterface* imageProcessor;
 			 ConfigurationManager* configManager;
+	private: System::IO::Ports::SerialPort^  serialComms;
+
 			 Logger* log;
 		
 
@@ -89,6 +92,7 @@ namespace AutoCutterApp {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			this->openFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->flowLayoutPanel1 = (gcnew System::Windows::Forms::FlowLayoutPanel());
@@ -101,6 +105,7 @@ namespace AutoCutterApp {
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->trackBar1 = (gcnew System::Windows::Forms::TrackBar());
 			this->imageProcessorWorker = (gcnew System::ComponentModel::BackgroundWorker());
+			this->serialComms = (gcnew System::IO::Ports::SerialPort(this->components));
 			this->flowLayoutPanel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar1))->BeginInit();

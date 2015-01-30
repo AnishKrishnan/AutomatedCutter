@@ -141,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutoCutterException.h" />
+    <ClInclude Include="CommonHelper.h" />
     <ClInclude Include="ConfigurationManager.h" />
     <ClInclude Include="GenericBase.h" />
     <ClInclude Include="Logger.h" />
@@ -149,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AutoCutterException.cpp" />
+    <ClCompile Include="CommonHelper.cpp" />
     <ClCompile Include="ConfigurationManager.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
