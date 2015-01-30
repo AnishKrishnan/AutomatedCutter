@@ -37,7 +37,7 @@ public:
 
 	char* ConstructPacket(vector<char>& pData);
 	char* ConstructPacket();
-	void ParseDataToPacket(vector<char>& pData);
+	bool TryParseDataToPacket(vector<char>& pData);
 	
 	PacketType GetPacketType();
 	void SetPacketType(PacketType pPacketType);

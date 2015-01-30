@@ -100,3 +100,24 @@ char* Packet::ConstructPacket(vector<char>& pData)
 	return packet;
 }
 #pragma endregion
+
+#pragma region Parsing Raw Data to Packet
+
+bool Packet::TryParseDataToPacket(vector<char>& pData)
+{
+	_log->Log(std::string("Packet::TryParseDataToPacket - Start"));
+	
+	vector<char>::iterator iterator = pData.begin();
+	
+	_log->Log(std::string("Parsing start byte"));
+	if(*iterator++ != START_BYTE)
+	{
+		_log->Log(std::string("First byte was not start byte. Will not proceed"));
+		return false;
+	}
+
+	_log->Log(std::string("Packet::TryParseDataToPacket - Finish"));
+	return true;
+}
+
+#pragma endregion
