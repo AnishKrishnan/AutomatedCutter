@@ -107,6 +107,8 @@ bool Packet::TryParseDataToPacket(vector<char>& pData)
 {
 	_log->Log(std::string("Packet::TryParseDataToPacket - Start"));
 	
+	int numberOfBytesProcessed = 0, numberOfDataBytes = 0;
+
 	vector<char>::iterator iterator = pData.begin();
 	
 	_log->Log(std::string("Parsing start byte"));
@@ -115,6 +117,34 @@ bool Packet::TryParseDataToPacket(vector<char>& pData)
 		_log->Log(std::string("First byte was not start byte. Will not proceed"));
 		return false;
 	}
+
+	_log->Log(std::string("Parsing number of bytes in packet"));
+	_totalNumberOfBytes = CommonHelper::ConvertCharArrayToInt(&(*iterator), _log);
+	if(_totalNumberOfBytes <= 0)
+	{
+		_log->Log(std::string("Number of bytes is less than or equal to 0"));
+		return false;
+	}
+	iterator += sizeof(int);
+
+	_log->Log(std::string("Parsing packet type"));
+	_packetType = static_cast<PacketType>(CommonHelper::ConvertCharArrayToInt(&(*iterator),_log));
+	if(!IS_VALID_PACKET_TYPE(_packetType))
+	{
+		_log->Log(std::string("Packet type not part of valid list"));
+		return false;
+	}
+	iterator+= sizeof(int);
+	numberOfBytesProcessed += sizeof(int);
+
+	_log->Log(std::string("Parsing number of data bytes"));
+	_totalDataBytes = CommonHelper::ConvertCharArrayToInt(&(*iterator), _log);
+	if(_totalDataBytes <= 0)
+	{
+		_log->Log(std::string("Number of data bytes is less than or equal to 0"));
+	}
+	iterator += sizeof(int);
+	numberOfBytesProcessed += sizeof(int);
 
 	_log->Log(std::string("Packet::TryParseDataToPacket - Finish"));
 	return true;

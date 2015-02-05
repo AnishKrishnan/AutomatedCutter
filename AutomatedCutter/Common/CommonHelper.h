@@ -20,5 +20,11 @@ public:
 	//~CommonHelper(void);
 
 	static char* ConvertIntToCharArray(int pInt, Logger* pLog);
+
+	static int ConvertCharArrayToInt(char* pCharArray, Logger* pLog);
+
+private:
+
+	const static int INT_ARRAY_OFFSET = 3;
 };
 
