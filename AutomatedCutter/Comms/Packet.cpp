@@ -8,7 +8,6 @@ Packet::Packet(void)
 	_totalNumberOfBytes = 0;
 	_totalDataBytes = 0;
 	_packetType = PACKETTYPE_INVALID;
-	_data = NULL;
 	_log->Log(std::string("Packet::ctor - Finish"));
 }
 
@@ -29,19 +28,15 @@ void Packet::SetPacketType(PacketType  pPacketType)
 	_packetType = pPacketType;
 }
 
-char* Packet::GetData()
+vector<char>& Packet::GetData()
 {
-	if(_data == NULL)
-	{
-		throw AutoCutterException(std::string("Packet::GetData - Packet data is null"));
-	}
 	return _data;
 }
 
 void Packet::SetData(vector<char>& pData)
 {
 	
-	_data = &pData[0];
+	_data = pData;
 	_totalDataBytes = pData.size();
 }
 #pragma endregion
@@ -53,7 +48,7 @@ char* Packet::ConstructPacket()
 	_log->Log(std::string("Packet::ConstructPacket - Start"));
 
 	_log->Log(std::string("Creating packet vector from data"));
-	vector<char> packet(_data, _data + sizeof(_data) / sizeof(int));
+	vector<char> packet(_data);
 
 	_log->Log(std::string("Adding packet data size"));
 	char* dataSize = CommonHelper::ConvertIntToCharArray(_totalDataBytes, _log);

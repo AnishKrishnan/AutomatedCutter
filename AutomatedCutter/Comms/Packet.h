@@ -42,7 +42,7 @@ public:
 	PacketType GetPacketType();
 	void SetPacketType(PacketType pPacketType);
 
-	char* GetData();
+	vector<char>& GetData();
 	void SetData(vector<char>& pData);
 
 private:
@@ -55,6 +55,6 @@ private:
 
 	int _totalDataBytes;
 
-	char* _data;
+	vector<char> _data;
 };
 
