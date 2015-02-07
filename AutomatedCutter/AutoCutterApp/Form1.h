@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "CropImage.h"
 #include "ScaleCalculator.h"
+#include "Packet.h"
 
 namespace AutoCutterApp {
 
@@ -27,6 +28,7 @@ namespace AutoCutterApp {
 
 			imageProcessor = new OpenCVImageProcessing();
 			configManager = ConfigurationManager::instance();
+			log = Logger::instance();
 			if(!configManager)
 			{
 				throw AutoCutterException("Could not find configuration manager");
@@ -314,6 +316,17 @@ private: System::Void ExecuteButton_Click(System::Object^  sender, System::Event
 			 {
 				 scaledTemp.push_back(scaleCalculator.ScalePointsList(temp[i]));
 			 }
+
+			 Packet p;
+			 p.SetPacketType(PACKETTYPE_ACK);
+			 char* testString = "Stuff";
+			 vector<char> testStringVector(testString, testString + sizeof(testString) / sizeof(char));
+
+			 char* rawPacket = p.ConstructPacket(testStringVector);
+			 int x = sizeof(rawPacket);
+			 vector<char> inputPacketTest(rawPacket, rawPacket + 18/sizeof(char));
+			 Packet p2;
+			 p2.TryParseDataToPacket(inputPacketTest);
 
 		 }
 };

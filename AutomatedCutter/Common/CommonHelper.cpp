@@ -11,7 +11,7 @@
 //{
 //}
 
-char* CommonHelper::ConvertIntToCharArray(int pInt, Logger* pLog)
+void CommonHelper::ConvertIntToCharArray(int pInt, char* pIntArray, Logger* pLog)
 {
 	if(pLog == NULL)
 	{
@@ -21,17 +21,17 @@ char* CommonHelper::ConvertIntToCharArray(int pInt, Logger* pLog)
 	pLog->Log(std::string("CommonHelper::ConvertItToCharArray - Start"));
 	
 	pLog->Log(std::string("Initialising array and pointer"));
-	char intArray[sizeof(int)];
+	
 	char* x = (char*)&pInt;
 
 	pLog->Log(std::string("Creating array"));
 	for(int i = 0; i < sizeof(int); i++)
 	{
-		intArray[INT_ARRAY_OFFSET - i] = x[i];
+		pIntArray[i] = x[i];
 	}
 	
 	pLog->Log(std::string("CommonHelper::ConvertItToCharArray - Finish"));
-	return intArray;
+	
 }
 
 int CommonHelper::ConvertCharArrayToInt(char* pCharArray, Logger* pLog)
@@ -47,12 +47,12 @@ int CommonHelper::ConvertCharArrayToInt(char* pCharArray, Logger* pLog)
 	{
 		throw AutoCutterException("CommonHelper::ConvertCharArrayToInt - pCharArray is null");
 	}
-
-	int value;
+	
+	int value = 0;
 	char* pointerToInt = (char*)&value;
 	for(int i = 0; i < sizeof(int); i++)
 	{
-		pointerToInt[INT_ARRAY_OFFSET - i] = pCharArray[i];
+		pointerToInt[i] = pCharArray[i];
 	}
 
 	pLog->Log(std::string("Value of char array is %i"), value);

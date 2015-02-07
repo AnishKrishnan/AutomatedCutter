@@ -19,7 +19,7 @@ public:
 	//CommonHelper(void);
 	//~CommonHelper(void);
 
-	static char* ConvertIntToCharArray(int pInt, Logger* pLog);
+	static void ConvertIntToCharArray(int pInt, char* pIntArray, Logger* pLog);
 
 	static int ConvertCharArrayToInt(char* pCharArray, Logger* pLog);
 

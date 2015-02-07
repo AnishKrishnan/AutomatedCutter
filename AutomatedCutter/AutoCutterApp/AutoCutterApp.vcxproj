@@ -105,7 +105,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>C:\Code Base\trunk\Automated Cutter\AutomatedCutter\ThIrd Party Libraries\rapidxml-1.13;C:\Code Base\trunk\Automated Cutter\AutomatedCutter\Common;C:\Code Base\trunk\Automated Cutter\AutomatedCutter\ImageProcessing;C:\Code Base\trunk\Automated Cutter\AutomatedCutter\Processor;C:\opencv\build\include\opencv2;C:\opencv\build\include\opencv;C:\opencv\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Code Base\trunk\Automated Cutter\AutomatedCutter\ThIrd Party Libraries\rapidxml-1.13;C:\Code Base\trunk\Automated Cutter\AutomatedCutter\Common;C:\Code Base\trunk\Automated Cutter\AutomatedCutter\ImageProcessing;C:\Code Base\trunk\Automated Cutter\AutomatedCutter\Processor;C:\Code Base\trunk\Automated Cutter\AutomatedCutter\Comms;C:\opencv\build\include\opencv2;C:\opencv\build\include\opencv;C:\opencv\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -198,6 +198,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.vcxproj">
       <Project>{745ead19-f142-478d-af66-a83d04841d04}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Comms\Comms.vcxproj">
+      <Project>{772a5773-f605-4b95-bdc0-8ba14c051d7b}</Project>
     </ProjectReference>
     <ProjectReference Include="..\ImageProcessing\ImageProcessing.vcxproj">
       <Project>{b0b523ab-b027-4f08-97dc-c9175aa063d1}</Project>

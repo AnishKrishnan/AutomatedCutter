@@ -16,7 +16,7 @@
 #include "CommonHelper.h"
 typedef enum 
 {
-	PACKETTYPE_INVALID,
+	PACKETTYPE_INVALID = 0,
 	PACKETTYPE_ACK,
 	PACKETTYPE_NACK,
 	PACKETTYPE_PATH_REQUEST,
@@ -55,6 +55,6 @@ private:
 
 	int _totalDataBytes;
 
-	vector<char> _data;
+	vector<char> _data, _fullPacketData;
 };
 
