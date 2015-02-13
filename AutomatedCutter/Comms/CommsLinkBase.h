@@ -12,12 +12,26 @@
 #endif
 
 #include "GenericBase.h"
-class COMMS_API ICommsLink : GenericBase
+#include "Packet.h"
+#include "ICommsListener.h"
+
+class COMMS_API CommsLinkBase : GenericBase
 {
 public:
 
+
 	virtual void OpenConnection() = 0;
 
-	//virtual void SendPacket(Packet& packet) = 0;
+	virtual void SendData(Packet& pPacket) = 0;
+
+	void AddReceivedDataListener(ICommsListener* pCommsListener);
+
+protected:
+	
+	void FireReceivedDataEvent(Packet& p);
+
+private:
+
+	vector<ICommsListener *> _receivedDataListeners;
 };
 

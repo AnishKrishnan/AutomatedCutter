@@ -10,13 +10,14 @@
 #define COMMS_API __declspec(dllimport)
 #endif
 
+#pragma once
+#include "ICommsListener.h"
+#include "Packet.h"
 // This class is exported from the Comms.dll
-class COMMS_API CComms {
+class COMMS_API Comms : public ICommsListener {
 public:
-	CComms(void);
-	// TODO: add your methods here.
+	Comms(void);
+	
+	virtual void RecievedDataCallback(Packet& pPacket);
 };
 
-extern COMMS_API int nComms;
-
-COMMS_API int fnComms(void);

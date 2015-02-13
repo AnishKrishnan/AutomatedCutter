@@ -27,10 +27,13 @@
     <ClInclude Include="Comms.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ICommsLink.h">
+    <ClInclude Include="Packet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Packet.h">
+    <ClInclude Include="CommsLinkBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ICommsListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -45,6 +48,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Packet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CommsLinkBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
