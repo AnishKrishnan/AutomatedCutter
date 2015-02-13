@@ -157,6 +157,7 @@
     <ClCompile Include="AutoCutterApp.cpp" />
     <ClCompile Include="CropImage.cpp" />
     <ClCompile Include="FormHelper.cpp" />
+    <ClCompile Include="SerialCommsLink.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -173,6 +174,7 @@
     </ClInclude>
     <ClInclude Include="FormHelper.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SerialCommsLink.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
