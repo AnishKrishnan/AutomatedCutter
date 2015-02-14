@@ -102,6 +102,7 @@ void SerialCommsLink::ReceiveByte(char pByte)
 				_log->Log(std::string("resetting packet"));
 				_endStreamCounter = 0;
 				_receivedData->GetInternal()->clear();
+				_packetStarted = false;
 			}
 		}
 		else
