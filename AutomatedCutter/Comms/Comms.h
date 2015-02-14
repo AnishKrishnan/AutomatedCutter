@@ -11,13 +11,11 @@
 #endif
 
 #pragma once
-#include "ICommsListener.h"
 #include "Packet.h"
 // This class is exported from the Comms.dll
-class COMMS_API Comms : public ICommsListener {
+class COMMS_API Comms{
 public:
 	Comms(void);
 	
-	virtual void RecievedDataCallback(Packet& pPacket);
 };
 

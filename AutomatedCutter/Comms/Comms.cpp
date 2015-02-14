@@ -11,7 +11,4 @@ Comms::Comms()
 	return;
 }
 
-void Comms::RecievedDataCallback(Packet& p)
-{
-	throw AutoCutterException("Implement me");
-}
+

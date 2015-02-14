@@ -2,7 +2,7 @@
 #include "GenericBase.h"
 #include "Packet.h"
 
-class ICommsListener :	public GenericBase
+ref class ICommsListener
 {
 public:
 

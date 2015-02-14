@@ -2,7 +2,7 @@
 #include "SerialCommsLink.h"
 
 
-SerialCommsLink::SerialCommsLink(void)
+SerialCommsLink::SerialCommsLink(void) : CommsLinkBase()
 {
 
 }
