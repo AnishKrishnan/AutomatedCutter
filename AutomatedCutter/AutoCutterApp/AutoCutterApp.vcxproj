@@ -172,7 +172,6 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="FormHelper.h" />
-    <ClInclude Include="GenericWrapper.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>

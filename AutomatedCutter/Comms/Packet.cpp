@@ -1,9 +1,12 @@
 #include "stdafx.h"
 #include "Packet.h"
 
+
+
 Packet::Packet(void)
 {
 	_log->Log(std::string("Packet::ctor - Start"));
+
 	_data.clear();
 	_fullPacketData.clear();
 	_totalNumberOfBytes = 0;
@@ -52,6 +55,9 @@ char* Packet::ConstructPacket()
 	_log->Log(std::string("Creating packet vector from data"));
 	_fullPacketData = _data;
 
+	_log->Log(std::string("Adding packet end stream"));
+	_fullPacketData.insert(_fullPacketData.end(), PACKET_END_STREAM, PACKET_END_STREAM + PACKET_END_STREAM_LENGTH);
+
 	_log->Log(std::string("Adding packet data size"));
 	char dataSize[sizeof(int)];
 	CommonHelper::ConvertIntToCharArray(_totalDataBytes, dataSize, _log);
@@ -78,7 +84,7 @@ char* Packet::ConstructPacket()
 	_fullPacketData.insert(_fullPacketData.begin(), packetSize, packetSize + sizeof(packetSize) / sizeof(char));
 
 	_log->Log(std::string("Adding start byte"));
-	_fullPacketData.insert(_fullPacketData.begin(), START_BYTE);
+	_fullPacketData.insert(_fullPacketData.begin(), PACKET_START_BYTE);
 
 	_log->Log(std::string("full packet data size = %i"), _fullPacketData.size());
 	_log->Log(std::string("Packet::ConstructPacket - Finish"));
@@ -113,7 +119,7 @@ bool Packet::TryParseDataToPacket(vector<char>& pData)
 	vector<char>::iterator iterator = pData.begin();
 	
 	_log->Log(std::string("Parsing start byte"));
-	if(*iterator != START_BYTE)
+	if(*iterator != PACKET_START_BYTE)
 	{
 		_log->Log(std::string("First byte was not start byte. Will not proceed"));
 		return false;

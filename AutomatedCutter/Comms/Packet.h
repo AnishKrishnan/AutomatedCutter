@@ -30,6 +30,11 @@ typedef enum
 									Type == PACKETTYPE_PATH_COMPLETED  \
 									)		
 
+static const char PACKET_START_BYTE = 0xFF;
+	
+static const int PACKET_END_STREAM_LENGTH = 4;
+static char PACKET_END_STREAM [] = {0xFF,0xFF,0xFF,0xFF};
+
 class COMMS_API Packet :	public GenericBase
 {
 public:
@@ -45,9 +50,10 @@ public:
 	vector<char>& GetData();
 	void SetData(vector<char>& pData);
 
+
+
 private:
 
-	static const char START_BYTE = 0xFF;
 
 	int _totalNumberOfBytes;
 

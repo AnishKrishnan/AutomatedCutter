@@ -198,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommsLinkBase.h" />
+    <ClInclude Include="GenericWrapper.h" />
     <ClInclude Include="ICommsListener.h" />
     <ClInclude Include="ManagedComms.h" />
     <ClInclude Include="Resource.h" />

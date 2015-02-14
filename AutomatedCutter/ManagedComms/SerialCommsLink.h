@@ -1,11 +1,19 @@
 #pragma once
 #include "CommsLinkBase.h"
 #include "ICommsListener.h"
+#include "GenericWrapper.h"
 
 ref class SerialCommsLink : CommsLinkBase
 {
+
 public:
-	SerialCommsLink();
+#pragma region Constructor Definitions
+	SerialCommsLink(System::String^ pPortName);
+	SerialCommsLink(System::String^ pPortName, int pBaudRate);
+
+#pragma endregion
+
+#pragma region Override Methods
 
 	virtual void OpenConnection() override;
 
@@ -13,11 +21,29 @@ public:
 
 	virtual void SendData(Packet& pPacket) override;
 
+#pragma endregion
+
 private:
+
+#pragma region Private Methods
 
 	void ReceiveByte(char data);
 
+	void Construct(System::String^ pPortName, int pBaudRate);
+
+#pragma endregion
+
+#pragma region Private Members
+
 	System::IO::Ports::SerialPort^ _serialPort;	
+
+	GenericWrapper<vector<char>>^ _receivedData;
+
+	bool _packetStarted;
+
+	int _endStreamCounter;
+
+#pragma endregion
 	
 };
 
