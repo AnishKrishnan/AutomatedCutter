@@ -11,6 +11,8 @@ public:
 
 	virtual void OpenConnection() = 0;
 
+	virtual void CloseConnection() = 0;
+
 	virtual void SendData(Packet& pPacket) = 0;
 
 	void AddReceivedDataListener(ICommsListener^ pCommsListener);

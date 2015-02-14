@@ -188,6 +188,7 @@
   <ItemGroup>
     <ClCompile Include="CommsLinkBase.cpp" />
     <ClCompile Include="ManagedComms.cpp" />
+    <ClCompile Include="SerialCommsLink.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -199,8 +200,8 @@
     <ClInclude Include="CommsLinkBase.h" />
     <ClInclude Include="ICommsListener.h" />
     <ClInclude Include="ManagedComms.h" />
-    <ClInclude Include="ManagedTest.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SerialCommsLink.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -218,6 +219,9 @@
     <ProjectReference Include="..\Comms\Comms.vcxproj">
       <Project>{772a5773-f605-4b95-bdc0-8ba14c051d7b}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -27,6 +27,9 @@
     <ClCompile Include="CommsLinkBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SerialCommsLink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ManagedComms.h">
@@ -41,13 +44,13 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ManagedTest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CommsLinkBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ICommsListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SerialCommsLink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
