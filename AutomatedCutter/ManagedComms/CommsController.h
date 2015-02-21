@@ -13,13 +13,17 @@ ref class CommsController : ICommsListener
 #pragma region Public Methods
 
 public:
-	CommsController(Logger* pLog);
+	CommsController(Logger* pLog, ConfigurationManager* pConfigManager);
 
 	void ConnectToDevice(System::String^ pPortName);
 
 	virtual void RecievedDataCallback(Packet& pPacket) override;
 
 	void AddCoordinate(CustomPoint3d<float>& pStartPoint, CustomPoint3d<float>& pEndPoint);
+
+	void AddLine(vector<CustomPoint3d<float>>& pLine);
+
+	
 
 #pragma endregion
 
@@ -28,13 +32,20 @@ private:
 
 	vector<char> ConvertPointToData(CustomPoint3d<float>& pPoint);
 
+	void SendPacket(Packet& pPacket);
+
+	static void PacketAckTimerElapsed(System::Object^  sender, System::Timers::ElapsedEventArgs^  e);
+
 #pragma endregion
 
 #pragma region Private Members
 
 	CommsLinkBase^ _commsLink;
 	Logger* _log;
+	ConfigurationManager* _configManager;
 	System::Collections::Generic::List<GenericWrapper<Packet> ^> _packetsToSend;
+	System::Timers::Timer _packetAckTimer;
+	bool _ackReceived;
 
 #pragma endregion
 };

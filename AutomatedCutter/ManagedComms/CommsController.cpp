@@ -2,15 +2,25 @@
 #include "CommsController.h"
 
 
-CommsController::CommsController(Logger* pLog)
+CommsController::CommsController(Logger* pLog, ConfigurationManager* pConfigManager)
 {
 	if(pLog == NULL)
 	{
 		throw AutoCutterException("CommsController::ctor - pLog is null");
 	}
 
+	if(pConfigManager == NULL)
+	{
+		throw AutoCutterException("CommsController::ctor - pConfigManager is null");
+	}
+
 	_log = pLog;
+	_configManager = pConfigManager;
+
 	_packetsToSend.Clear();
+
+	_packetAckTimer.Elapsed += gcnew System::Timers::ElapsedEventHandler(CommsController::PacketAckTimerElapsed);
+	_packetAckTimer.Interval = atof(_configManager->getValue("PacketAckTimeout").c_str());
 }
 
 void CommsController::ConnectToDevice(System::String^ pPortName)
@@ -56,9 +66,36 @@ void CommsController::AddCoordinate(CustomPoint3d<float>& pStartPoint, CustomPoi
 	_log->Log(std::string("CommsController::AddCoordinate - Finish"));
 }
 
+void CommsController::AddLine(vector<CustomPoint3d<float>>& pLine)
+{
+	_log->Log(std::string("CommsController::AddLine - Start"));
+
+	_log->Log(std::string("Adding points in line to list of packets to send"));
+
+	//Start from the second point in the line to create the displacement
+	for(int i = 1; i < pLine.size(); i++)
+	{
+		AddCoordinate(pLine.at(i-1), pLine.at(i));
+	}
+
+	_log->Log(std::string("CommsController::AddLine - Finish"));
+}
+
 void CommsController::RecievedDataCallback(Packet& pPacket)
 {
-	throw AutoCutterException("CommsController::ReceivedDataCallback - Implement me");
+	_log->Log(std::string("CommsController::ReceivedDataCallback - Start"));
+	
+	switch(pPacket.GetPacketType())
+	{
+		case PACKETTYPE_ACK:
+			_ackReceived = true;
+			break;
+
+		default:
+			break;
+	}
+
+	_log->Log(std::string("CommsController::ReceivedDataCallback - Finish"));
 }
 
 vector<char> CommsController::ConvertPointToData(CustomPoint3d<float>& pPoint)
@@ -81,4 +118,28 @@ vector<char> CommsController::ConvertPointToData(CustomPoint3d<float>& pPoint)
 
 	_log->Log(std::string("CommsController::ConvertPointToData - Finish"));
 	return convertedData;
+}
+
+void CommsController::SendPacket(Packet& pPacket)
+{
+	_log->Log(std::string("CommsController::SendPacket - Start"));
+
+	_ackReceived = false;
+	_commsLink->SendData(pPacket);
+	_packetAckTimer.Start();
+
+	//hold until ack received or timeout
+	while(!_ackReceived)
+	{
+	}
+
+	_ackReceived = false;
+	_packetAckTimer.Stop();
+	
+	_log->Log(std::string("CommsController::SendPacket - Finish"));
+}
+
+void CommsController::PacketAckTimerElapsed(System::Object^ pSource, System::Timers::ElapsedEventArgs^ pEArgs)
+{
+	throw AutoCutterException("Did not receive packet in the appropriate amount of time");
 }
