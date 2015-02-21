@@ -113,7 +113,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Code Base\trunk\Automated Cutter\AutomatedCutter\ThIrd Party Libraries\rapidxml-1.13;C:\Code Base\trunk\Automated Cutter\AutomatedCutter\Common;C:\Code Base\trunk\Automated Cutter\AutomatedCutter\Comms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Code Base\trunk\Automated Cutter\AutomatedCutter\ThIrd Party Libraries\rapidxml-1.13;C:\Code Base\trunk\Automated Cutter\AutomatedCutter\Common;C:\Code Base\trunk\Automated Cutter\AutomatedCutter\Comms;C:\Code Base\trunk\Automated Cutter\AutomatedCutter\Processor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -221,6 +221,9 @@
     </ProjectReference>
     <ProjectReference Include="..\Comms\Comms.vcxproj">
       <Project>{772a5773-f605-4b95-bdc0-8ba14c051d7b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Processor\Processor.vcxproj">
+      <Project>{533712ea-4c96-4bb4-ab06-aff44d4d5ba6}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
