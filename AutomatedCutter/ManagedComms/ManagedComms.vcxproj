@@ -186,6 +186,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CommsController.cpp" />
     <ClCompile Include="CommsLinkBase.cpp" />
     <ClCompile Include="ManagedComms.cpp" />
     <ClCompile Include="SerialCommsLink.cpp" />
@@ -197,6 +198,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CommsController.h" />
     <ClInclude Include="CommsLinkBase.h" />
     <ClInclude Include="GenericWrapper.h" />
     <ClInclude Include="ICommsListener.h" />

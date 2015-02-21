@@ -30,6 +30,9 @@
     <ClCompile Include="SerialCommsLink.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CommsController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ManagedComms.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GenericWrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CommsController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
