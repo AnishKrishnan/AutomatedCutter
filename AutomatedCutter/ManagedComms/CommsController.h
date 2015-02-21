@@ -10,7 +10,9 @@ ref class CommsController : ICommsListener
 #pragma region Public Methods
 
 public:
-	CommsController(System::String^ pPortName, Logger* pLog);
+	CommsController(Logger* pLog);
+
+	void ConnectToDevice(System::String^ pPortName);
 
 	virtual void RecievedDataCallback(Packet& pPacket) override;
 
