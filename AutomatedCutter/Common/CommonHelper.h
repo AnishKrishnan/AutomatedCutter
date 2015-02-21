@@ -16,19 +16,10 @@
 static class COMMON_API CommonHelper 
 {
 public:
-	//CommonHelper(void);
-	//~CommonHelper(void);
-
-	//static void ConvertIntToCharArray(int pInt, char* pIntArray, Logger* pLog);
-
-	//static int ConvertCharArrayToInt(char* pCharArray, Logger* pLog);
-
-	//static void ConvertFloatToCharArray(int pFloat, char* pCharArray, Logger* pLog);
-
-	//static float ConvertCharArrayToFloat(char* pCharArray, Logger* pLog);
 	
 	template <typename T> static void ConvertValueToCharArray(T pValue, char* pArray, Logger* pLog);
 	template <typename T> static T ConvertCharArrayToValue(char* pCharArray, Logger* pLog);
+
 private:
 
 	const static int INT_ARRAY_OFFSET = 3;
