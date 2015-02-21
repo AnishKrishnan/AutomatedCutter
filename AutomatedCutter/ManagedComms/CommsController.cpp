@@ -2,20 +2,20 @@
 #include "CommsController.h"
 
 
-CommsController::CommsController(Logger* pLog, ConfigurationManager* pConfigManager)
+CommsController::CommsController()
 {
-	if(pLog == NULL)
+	_log = Logger::instance();
+	_configManager = ConfigurationManager::instance();
+
+	if(_log == NULL)
 	{
 		throw AutoCutterException("CommsController::ctor - pLog is null");
 	}
 
-	if(pConfigManager == NULL)
+	if(_configManager == NULL)
 	{
 		throw AutoCutterException("CommsController::ctor - pConfigManager is null");
 	}
-
-	_log = pLog;
-	_configManager = pConfigManager;
 
 	_packetsToSend.Clear();
 

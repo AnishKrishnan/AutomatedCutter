@@ -3,7 +3,7 @@
 #include "Packet.h"
 #include "ICommsListener.h"
 
-ref class CommsLinkBase
+public ref class CommsLinkBase
 {
 public:
 	

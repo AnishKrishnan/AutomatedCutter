@@ -4,6 +4,7 @@
 #include "ScaleCalculator.h"
 #include "Packet.h"
 
+
 namespace AutoCutterApp {
 
 	using namespace System;
@@ -33,6 +34,7 @@ namespace AutoCutterApp {
 			{
 				throw AutoCutterException("Could not find configuration manager");
 			}
+			commsController = gcnew CommsController();
 		}
 
 	protected:
@@ -50,16 +52,6 @@ namespace AutoCutterApp {
 	private: System::Windows::Forms::OpenFileDialog^  openFileDialog;
 	private: System::ComponentModel::IContainer^  components;
 
-
-
-
-
-
-
-	protected: 
-
-	protected: 
-
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -70,7 +62,7 @@ namespace AutoCutterApp {
 	private: System::Windows::Forms::Button^  button2;
 	private: System::ComponentModel::BackgroundWorker^  imageProcessorWorker;
 	private: System::Windows::Forms::PictureBox^  pictureBox1;
-	private: System::Windows::Forms::TrackBar^  trackBar1;
+
 	private: System::Windows::Forms::TextBox^  FrameWidth;
 	private: System::Windows::Forms::Label^  FrameWidthLabel;
 	private: System::Windows::Forms::Button^  ExecuteButton;
@@ -82,7 +74,10 @@ namespace AutoCutterApp {
 
 			 IImageInterface* imageProcessor;
 			 ConfigurationManager* configManager;
-	private: System::IO::Ports::SerialPort^  serialComms;
+			 CommsController^ commsController;
+	private: System::Windows::Forms::ComboBox^  serialPortsList;
+	private: System::Windows::Forms::Label^  serialPortLabel;
+
 
 			 Logger* log;
 		
@@ -94,7 +89,6 @@ namespace AutoCutterApp {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = (gcnew System::ComponentModel::Container());
 			this->openFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->flowLayoutPanel1 = (gcnew System::Windows::Forms::FlowLayoutPanel());
@@ -104,13 +98,12 @@ namespace AutoCutterApp {
 			this->FrameWidth = (gcnew System::Windows::Forms::TextBox());
 			this->FrameHeightLabel = (gcnew System::Windows::Forms::Label());
 			this->FrameHeight = (gcnew System::Windows::Forms::TextBox());
+			this->serialPortsList = (gcnew System::Windows::Forms::ComboBox());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
-			this->trackBar1 = (gcnew System::Windows::Forms::TrackBar());
 			this->imageProcessorWorker = (gcnew System::ComponentModel::BackgroundWorker());
-			this->serialComms = (gcnew System::IO::Ports::SerialPort(this->components));
+			this->serialPortLabel = (gcnew System::Windows::Forms::Label());
 			this->flowLayoutPanel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// openFileDialog
@@ -136,11 +129,12 @@ namespace AutoCutterApp {
 			this->flowLayoutPanel1->Controls->Add(this->FrameWidth);
 			this->flowLayoutPanel1->Controls->Add(this->FrameHeightLabel);
 			this->flowLayoutPanel1->Controls->Add(this->FrameHeight);
+			this->flowLayoutPanel1->Controls->Add(this->serialPortLabel);
+			this->flowLayoutPanel1->Controls->Add(this->serialPortsList);
 			this->flowLayoutPanel1->Controls->Add(this->pictureBox1);
-			this->flowLayoutPanel1->Controls->Add(this->trackBar1);
 			this->flowLayoutPanel1->Location = System::Drawing::Point(1, 3);
 			this->flowLayoutPanel1->Name = L"flowLayoutPanel1";
-			this->flowLayoutPanel1->Size = System::Drawing::Size(863, 450);
+			this->flowLayoutPanel1->Size = System::Drawing::Size(1017, 572);
 			this->flowLayoutPanel1->TabIndex = 3;
 			// 
 			// button2
@@ -195,44 +189,50 @@ namespace AutoCutterApp {
 			this->FrameHeight->Size = System::Drawing::Size(99, 22);
 			this->FrameHeight->TabIndex = 8;
 			// 
+			// serialPortsList
+			// 
+			this->serialPortsList->FormattingEnabled = true;
+			this->serialPortsList->Items->AddRange(gcnew cli::array< System::Object^  >(1) {L"COM4"});
+			this->serialPortsList->Location = System::Drawing::Point(814, 3);
+			this->serialPortsList->Name = L"serialPortsList";
+			this->serialPortsList->Size = System::Drawing::Size(121, 24);
+			this->serialPortsList->TabIndex = 10;
+			this->serialPortsList->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::serialPortsList_SelectedIndexChanged);
+			// 
 			// pictureBox1
 			// 
 			this->pictureBox1->Location = System::Drawing::Point(3, 53);
 			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(653, 397);
+			this->pictureBox1->Size = System::Drawing::Size(718, 454);
 			this->pictureBox1->TabIndex = 3;
 			this->pictureBox1->TabStop = false;
 			this->pictureBox1->DoubleClick += gcnew System::EventHandler(this, &Form1::pictureBox1_DoubleClick);
-			// 
-			// trackBar1
-			// 
-			this->trackBar1->Location = System::Drawing::Point(662, 53);
-			this->trackBar1->Maximum = 255;
-			this->trackBar1->Name = L"trackBar1";
-			this->trackBar1->Orientation = System::Windows::Forms::Orientation::Vertical;
-			this->trackBar1->Size = System::Drawing::Size(56, 191);
-			this->trackBar1->TabIndex = 4;
-			this->trackBar1->Value = 100;
-			this->trackBar1->Scroll += gcnew System::EventHandler(this, &Form1::trackBar1_Scroll);
 			// 
 			// imageProcessorWorker
 			// 
 			this->imageProcessorWorker->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &Form1::imageProcessorWorker_DoWork);
 			this->imageProcessorWorker->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &Form1::imageProcessorWorker_WorkerCompleted);
 			// 
+			// serialPortLabel
+			// 
+			this->serialPortLabel->AutoSize = true;
+			this->serialPortLabel->Location = System::Drawing::Point(727, 0);
+			this->serialPortLabel->Name = L"serialPortLabel";
+			this->serialPortLabel->Size = System::Drawing::Size(81, 17);
+			this->serialPortLabel->TabIndex = 11;
+			this->serialPortLabel->Text = L"Serial Ports";
 			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(866, 454);
+			this->ClientSize = System::Drawing::Size(1019, 587);
 			this->Controls->Add(this->flowLayoutPanel1);
 			this->Name = L"Form1";
 			this->Text = L"Form1";
 			this->flowLayoutPanel1->ResumeLayout(false);
 			this->flowLayoutPanel1->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->trackBar1))->EndInit();
 			this->ResumeLayout(false);
 
 		}
@@ -329,6 +329,10 @@ private: System::Void ExecuteButton_Click(System::Object^  sender, System::Event
 			 Packet p2;
 			 p2.TryParseDataToPacket(inputPacketTest);
 
+		 }
+private: System::Void serialPortsList_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+			 
+			 commsController->ConnectToDevice((System::String^)serialPortsList->SelectedItem);
 		 }
 };
 

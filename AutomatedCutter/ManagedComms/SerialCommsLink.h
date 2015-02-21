@@ -3,7 +3,7 @@
 #include "ICommsListener.h"
 #include "GenericWrapper.h"
 
-ref class SerialCommsLink : CommsLinkBase
+public ref class SerialCommsLink : CommsLinkBase
 {
 
 public:

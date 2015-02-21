@@ -8,12 +8,12 @@
 #include "Packet.h"
 #include "GenericWrapper.h"
 
-ref class CommsController : ICommsListener
+public ref class CommsController : ICommsListener
 {
 #pragma region Public Methods
 
 public:
-	CommsController(Logger* pLog, ConfigurationManager* pConfigManager);
+	CommsController();
 
 	void ConnectToDevice(System::String^ pPortName);
 

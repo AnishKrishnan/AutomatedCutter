@@ -1,6 +1,6 @@
 #pragma once
 #include "GenericBase.h"
-template <typename T> ref class GenericWrapper
+template <typename T> public ref class GenericWrapper
 {
 public:
 
