@@ -220,6 +220,7 @@ namespace AutoCutterApp {
 			this->imageProcessorWorker->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &Form1::imageProcessorWorker_DoWork);
 			this->imageProcessorWorker->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &Form1::imageProcessorWorker_WorkerCompleted);
 			// 
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);

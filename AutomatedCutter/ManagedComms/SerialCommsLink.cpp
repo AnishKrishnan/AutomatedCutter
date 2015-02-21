@@ -127,4 +127,15 @@ void SerialCommsLink::Construct(System::String^ pPortName, int pBaudRate)
 	_serialPort = gcnew System::IO::Ports::SerialPort(pPortName, pBaudRate);
 
 	_receivedData = gcnew GenericWrapper<vector<char>>(new vector<char>());
+
+	_serialPort->DataReceived += gcnew System::IO::Ports::SerialDataReceivedEventHandler(this, &SerialCommsLink::DataReceivedEventHandler);
 }
+
+void SerialCommsLink::DataReceivedEventHandler(System::Object^  pSender, System::IO::Ports::SerialDataReceivedEventArgs^  pEArgs)
+{
+	while(_serialPort->BytesToRead)
+	{
+		this->ReceiveByte(_serialPort->ReadByte());
+	}
+}
+

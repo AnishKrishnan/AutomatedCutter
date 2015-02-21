@@ -31,6 +31,8 @@ private:
 
 	void Construct(System::String^ pPortName, int pBaudRate);
 
+	void SerialCommsLink::DataReceivedEventHandler(System::Object^  pSender, System::IO::Ports::SerialDataReceivedEventArgs^  pEArgs);
+
 #pragma endregion
 
 #pragma region Private Members
