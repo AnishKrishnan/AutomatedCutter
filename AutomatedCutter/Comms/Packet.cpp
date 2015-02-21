@@ -60,7 +60,7 @@ char* Packet::ConstructPacket()
 
 	_log->Log(std::string("Adding packet data size"));
 	char dataSize[sizeof(int)];
-	CommonHelper::ConvertIntToCharArray(_totalDataBytes, dataSize, _log);
+	CommonHelper::ConvertValueToCharArray<int>(_totalDataBytes, dataSize, _log);
 	if(dataSize == NULL)
 	{
 		throw AutoCutterException(std::string("Could not retrieve data size"));
@@ -76,7 +76,7 @@ char* Packet::ConstructPacket()
 	_totalNumberOfBytes = _fullPacketData.size();
 
 	char packetSize[sizeof(int)];
-	CommonHelper::ConvertIntToCharArray(_totalNumberOfBytes, packetSize, _log);
+	CommonHelper::ConvertValueToCharArray<int>(_totalNumberOfBytes, packetSize, _log);
 	if(packetSize == NULL)
 	{
 		throw AutoCutterException("Could not retrieve total packet size");
@@ -126,7 +126,7 @@ bool Packet::TryParseDataToPacket(vector<char>& pData)
 	}
 	iterator++;
 	_log->Log(std::string("Parsing number of bytes in packet"));
-	_totalNumberOfBytes = CommonHelper::ConvertCharArrayToInt(&(*iterator), _log);
+	_totalNumberOfBytes = CommonHelper::ConvertCharArrayToValue<int>(&(*iterator), _log);
 	if(_totalNumberOfBytes <= 0)
 	{
 		_log->Log(std::string("Number of bytes is less than or equal to 0"));
@@ -145,7 +145,7 @@ bool Packet::TryParseDataToPacket(vector<char>& pData)
 	numberOfBytesProcessed++;
 
 	_log->Log(std::string("Parsing number of data bytes"));
-	_totalDataBytes = CommonHelper::ConvertCharArrayToInt(&(*iterator), _log);
+	_totalDataBytes = CommonHelper::ConvertCharArrayToValue<int>(&(*iterator), _log);
 	if(_totalDataBytes <= 0)
 	{
 		_log->Log(std::string("Number of data bytes is less than or equal to 0"));
