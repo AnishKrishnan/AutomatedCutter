@@ -139,6 +139,14 @@ void CommsController::SendPacket(Packet& pPacket)
 	_log->Log(std::string("CommsController::SendPacket - Finish"));
 }
 
+void CommsController::SendAllPackets()
+{
+	_log->Log(std::string("CommsController::SendAllPackets - Start"));
+
+
+	_log->Log(std::string("CommsController::SendAllPackets - End"));
+}
+
 void CommsController::PacketAckTimerElapsed(System::Object^ pSource, System::Timers::ElapsedEventArgs^ pEArgs)
 {
 	throw AutoCutterException("Did not receive packet in the appropriate amount of time");

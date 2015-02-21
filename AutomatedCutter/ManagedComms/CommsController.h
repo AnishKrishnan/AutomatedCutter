@@ -10,6 +10,7 @@
 
 public ref class CommsController : ICommsListener
 {
+
 #pragma region Public Methods
 
 public:
@@ -23,7 +24,9 @@ public:
 
 	void AddLine(vector<CustomPoint3d<float>>& pLine);
 
-	
+	void SendPacket(Packet& pPacket);
+
+	void SendAllPackets();
 
 #pragma endregion
 
@@ -31,8 +34,6 @@ private:
 #pragma region Private Methods
 
 	vector<char> ConvertPointToData(CustomPoint3d<float>& pPoint);
-
-	void SendPacket(Packet& pPacket);
 
 	static void PacketAckTimerElapsed(System::Object^  sender, System::Timers::ElapsedEventArgs^  e);
 

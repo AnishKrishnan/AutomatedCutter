@@ -77,6 +77,7 @@ namespace AutoCutterApp {
 			 CommsController^ commsController;
 	private: System::Windows::Forms::ComboBox^  serialPortsList;
 	private: System::Windows::Forms::Label^  serialPortLabel;
+	private: System::ComponentModel::BackgroundWorker^  executeCuttingWorker;
 
 
 			 Logger* log;
@@ -98,10 +99,11 @@ namespace AutoCutterApp {
 			this->FrameWidth = (gcnew System::Windows::Forms::TextBox());
 			this->FrameHeightLabel = (gcnew System::Windows::Forms::Label());
 			this->FrameHeight = (gcnew System::Windows::Forms::TextBox());
+			this->serialPortLabel = (gcnew System::Windows::Forms::Label());
 			this->serialPortsList = (gcnew System::Windows::Forms::ComboBox());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->imageProcessorWorker = (gcnew System::ComponentModel::BackgroundWorker());
-			this->serialPortLabel = (gcnew System::Windows::Forms::Label());
+			this->executeCuttingWorker = (gcnew System::ComponentModel::BackgroundWorker());
 			this->flowLayoutPanel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
@@ -189,6 +191,15 @@ namespace AutoCutterApp {
 			this->FrameHeight->Size = System::Drawing::Size(99, 22);
 			this->FrameHeight->TabIndex = 8;
 			// 
+			// serialPortLabel
+			// 
+			this->serialPortLabel->AutoSize = true;
+			this->serialPortLabel->Location = System::Drawing::Point(727, 0);
+			this->serialPortLabel->Name = L"serialPortLabel";
+			this->serialPortLabel->Size = System::Drawing::Size(81, 17);
+			this->serialPortLabel->TabIndex = 11;
+			this->serialPortLabel->Text = L"Serial Ports";
+			// 
 			// serialPortsList
 			// 
 			this->serialPortsList->FormattingEnabled = true;
@@ -213,14 +224,9 @@ namespace AutoCutterApp {
 			this->imageProcessorWorker->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &Form1::imageProcessorWorker_DoWork);
 			this->imageProcessorWorker->RunWorkerCompleted += gcnew System::ComponentModel::RunWorkerCompletedEventHandler(this, &Form1::imageProcessorWorker_WorkerCompleted);
 			// 
-			// serialPortLabel
+			// executeCuttingWorker
 			// 
-			this->serialPortLabel->AutoSize = true;
-			this->serialPortLabel->Location = System::Drawing::Point(727, 0);
-			this->serialPortLabel->Name = L"serialPortLabel";
-			this->serialPortLabel->Size = System::Drawing::Size(81, 17);
-			this->serialPortLabel->TabIndex = 11;
-			this->serialPortLabel->Text = L"Serial Ports";
+			this->executeCuttingWorker->DoWork += gcnew System::ComponentModel::DoWorkEventHandler(this, &Form1::executeCuttingWorker_DoWork);
 			// 
 			// Form1
 			// 
@@ -281,6 +287,19 @@ private: System::Void pictureBox1_DoubleClick(System::Object^  sender, System::E
 		 }
 private: System::Void ExecuteButton_Click(System::Object^  sender, System::EventArgs^  e) {
 
+			 if(executeCuttingWorker)
+			 {
+				 executeCuttingWorker->RunWorkerAsync();
+			 }
+		 }
+
+private: System::Void serialPortsList_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+			 
+			 commsController->ConnectToDevice((System::String^)serialPortsList->SelectedItem);
+		 }
+
+private: System::Void executeCuttingWorker_DoWork(System::Object^  sender, System::ComponentModel::DoWorkEventArgs^  e) {
+
 			 double boundingWidth = 0.0, boundingHeight = 0.0;
 
 			 if(!Double::TryParse(FrameWidth->Text, boundingWidth))
@@ -318,21 +337,13 @@ private: System::Void ExecuteButton_Click(System::Object^  sender, System::Event
 				 scaledTemp.push_back(scaleCalculator.ScalePointsList(temp[i]));
 			 }
 
-			 Packet p;
-			 p.SetPacketType(PACKETTYPE_ACK);
-			 char* testString = "Stuff";
-			 vector<char> testStringVector(testString, testString + sizeof(testString) / sizeof(char));
+			 for(int i = 0; i < scaledTemp.size(); i++)
+			 {
+				 commsController->AddLine(scaledTemp.at(i));
+			 }
 
-			 char* rawPacket = p.ConstructPacket(testStringVector);
-			 int x = sizeof(rawPacket);
-			 vector<char> inputPacketTest(rawPacket, rawPacket + 18/sizeof(char));
-			 Packet p2;
-			 p2.TryParseDataToPacket(inputPacketTest);
 
-		 }
-private: System::Void serialPortsList_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
-			 
-			 commsController->ConnectToDevice((System::String^)serialPortsList->SelectedItem);
+
 		 }
 };
 
